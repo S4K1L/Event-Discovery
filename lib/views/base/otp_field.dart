@@ -96,7 +96,7 @@ class _OtpInputState extends State<OtpInput> {
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           style: AppTextStyles.text18(
-            color: AppColors.gray[900],
+            color: AppColors.grey[900],
             weight: AppTextStyles.semibold,
           ),
           maxLength: 1,
@@ -110,7 +110,7 @@ class _OtpInputState extends State<OtpInput> {
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: widget.hasError ? Colors.red : AppColors.gray[200]!,
+                color: widget.hasError ? Colors.red : AppColors.grey[200]!,
                 width: 1.5,
               ),
             ),

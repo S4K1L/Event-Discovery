@@ -3,6 +3,7 @@ import 'package:flutter_extension/controller/auth_controller.dart';
 import 'package:flutter_extension/util/app_colors.dart';
 import 'package:flutter_extension/util/style.dart';
 import 'package:flutter_extension/views/base/custom_border_button.dart';
+import 'package:flutter_extension/views/base/custom_bottom_nav.dart';
 import 'package:flutter_extension/views/base/custom_button.dart';
 import 'package:flutter_extension/views/base/otp_field.dart';
 import 'package:flutter_extension/views/screen/auth/reset_password.dart';
@@ -42,7 +43,7 @@ class _OtpScreenState extends State<OtpScreen> {
               Text(
                 "Enter ${widget.title} code",
                 style: AppTextStyles.text18(
-                  color: AppColors.gray[900],
+                  color: AppColors.grey[900],
                   weight: AppTextStyles.semibold,
                 ),
               ),
@@ -50,7 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
               Text(
                 "A 4-digit code was sent to\n${widget.email}",
                 style: AppTextStyles.text14(
-                  color: AppColors.gray[700],
+                  color: AppColors.grey[700],
                   weight: AppTextStyles.regular,
                 ),
                 textAlign: TextAlign.center,
@@ -84,7 +85,7 @@ class _OtpScreenState extends State<OtpScreen> {
               Text(
                 "Haven’t received code yet?",
                 style: AppTextStyles.text12(
-                  color: AppColors.gray[400],
+                  color: AppColors.grey[400],
                   weight: AppTextStyles.regular,
                 ),
               ),
@@ -108,6 +109,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   if (widget.isForResetPassword) {
                     Get.to(() => const ResetPassword());
                   }
+
+                  Get.offAll(() => const CustomBottomNavbar());
 
                   bool success = authController.verifyOtp(currentOtp);
 

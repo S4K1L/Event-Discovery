@@ -65,7 +65,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             onChanged: validate,
             decoration: InputDecoration(
               hintText: widget.hint,
-              hintStyle: TextStyle(color: AppColors.gray[300]),
+              hintStyle: TextStyle(color: AppColors.grey[300]),
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 14,
@@ -83,7 +83,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
                 borderSide: BorderSide(
-                  color: hasError ? Colors.red : AppColors.gray[200]!,
+                  color: hasError ? Colors.red : AppColors.grey[200]!,
                   width: 1.5,
                 ),
               ),

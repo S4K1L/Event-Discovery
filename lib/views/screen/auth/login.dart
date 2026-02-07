@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extension/util/app_colors.dart';
 import 'package:flutter_extension/util/style.dart';
+import 'package:flutter_extension/views/base/custom_bottom_nav.dart';
 import 'package:flutter_extension/views/base/custom_button.dart';
 import 'package:flutter_extension/views/base/custom_password_field.dart';
 import 'package:flutter_extension/views/base/custom_text_field.dart';
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         "Welcome!",
                         style: AppTextStyles.display24(
-                          color: AppColors.gray[900],
+                          color: AppColors.grey[900],
                           weight: AppTextStyles.semibold,
                         ),
                       ),
@@ -114,7 +115,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // const SizedBox(height: 24),
                       CustomButton(
-                        onTap: () {},
+                        onTap: () {
+                          if (isFormValid) {
+                            Get.offAll(() => CustomBottomNavbar());
+                          }
+                        },
                         text: "Login",
                         color: isFormValid
                             ? AppColors.primary
@@ -126,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "Not a member?",
                             style: AppTextStyles.text14(
-                              color: AppColors.gray[400],
+                              color: AppColors.grey[400],
                               weight: FontWeight.w600,
                             ),
                           ),

@@ -66,7 +66,7 @@ class AppColors {
   };
 
   // ===================== GRAY =====================
-  static const Map<int, Color> gray = {
+  static const Map<int, Color> grey = {
     25: Color(0xFFF9FAFB),
     50: Color(0xFFF3F4F6),
     100: Color(0xFFE5E7EB),
@@ -91,11 +91,11 @@ class AppColors {
 
   static Color get background => blue[25]!;
   static Color get surface => white;
-  static Color get border => gray[200]!;
+  static Color get border => grey[200]!;
 
-  static Color get textPrimary => gray[900]!;
-  static Color get textSecondary => gray[600]!;
-  static Color get hint => gray[400]!;
+  static Color get textPrimary => grey[900]!;
+  static Color get textSecondary => grey[600]!;
+  static Color get hint => grey[400]!;
 
   static const BoxShadow cardShadow = BoxShadow(
     color: Color(0x1A000000),

@@ -68,7 +68,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Text(
                   "Forgot password",
                   style: AppTextStyles.display24(
-                    color: AppColors.gray[900],
+                    color: AppColors.grey[900],
                     weight: AppTextStyles.semibold,
                   ),
                 ),
@@ -76,7 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Text(
                   "Enter your email to reset your password",
                   style: AppTextStyles.text16(
-                    color: AppColors.gray[400],
+                    color: AppColors.grey[400],
                     weight: AppTextStyles.regular,
                   ),
                 ),

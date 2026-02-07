@@ -63,7 +63,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 Text(
                   "Reset Password",
                   style: AppTextStyles.display24(
-                    color: AppColors.gray[900],
+                    color: AppColors.grey[900],
                     weight: AppTextStyles.semibold,
                   ),
                 ),

@@ -70,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text(
                   "Sign up",
                   style: AppTextStyles.display24(
-                    color: AppColors.gray[900],
+                    color: AppColors.grey[900],
                     weight: AppTextStyles.semibold,
                   ),
                 ),
@@ -78,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text(
                   "Create an account to get started ",
                   style: AppTextStyles.text16(
-                    color: AppColors.gray[400],
+                    color: AppColors.grey[400],
                     weight: AppTextStyles.regular,
                   ),
                 ),
@@ -124,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         activeColor: AppColors.primary,
                         checkColor: AppColors.white,
                         side: BorderSide(
-                          color: AppColors.gray[300]!,
+                          color: AppColors.grey[300]!,
                           width: 1.5,
                         ),
                         shape: RoundedRectangleBorder(
@@ -136,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: RichText(
                         text: TextSpan(
                           style: AppTextStyles.text14(
-                            color: AppColors.gray[500],
+                            color: AppColors.grey[500],
                             weight: FontWeight.w500,
                           ),
                           children: [
@@ -206,7 +206,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       "Already have an account?",
                       style: AppTextStyles.text14(
-                        color: AppColors.gray[400],
+                        color: AppColors.grey[400],
                         weight: FontWeight.w600,
                       ),
                     ),
