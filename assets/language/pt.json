@@ -1,0 +1,20 @@
+{
+  "app_name": "Meu Aplicativo",
+  "welcome": "Bem-vindo",
+  "login": "Entrar",
+  "logout": "Sair",
+  "signup": "Cadastrar-se",
+  "email": "Email",
+  "password": "Senha",
+  "forgot_password": "Esqueceu a senha?",
+  "home": "Início",
+  "settings": "Configurações",
+  "language": "Idioma",
+  "profile": "Perfil",
+  "save": "Salvar",
+  "cancel": "Cancelar",
+  "search": "Pesquisar",
+  "notifications": "Notificações",
+  "yes": "Sim",
+  "no": "Não"
+}

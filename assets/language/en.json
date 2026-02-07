@@ -1,0 +1,20 @@
+{
+  "app_name": "My Application",
+  "welcome": "Welcome",
+  "login": "Login",
+  "logout": "Logout",
+  "signup": "Sign Up",
+  "email": "Email",
+  "password": "Password",
+  "forgot_password": "Forgot Password?",
+  "home": "Home",
+  "settings": "Settings",
+  "language": "Language",
+  "profile": "Profile",
+  "save": "Save",
+  "cancel": "Cancel",
+  "search": "Search",
+  "notifications": "Notifications",
+  "yes": "Yes",
+  "no": "No"
+}
