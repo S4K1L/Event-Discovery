@@ -1,10 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_extension/controller/home_controller.dart';
 import 'package:flutter_extension/data/model/event_model.dart';
 import 'package:flutter_extension/util/app_colors.dart';
 import 'package:flutter_extension/util/style.dart';
+import 'package:flutter_extension/views/screen/common/notification.dart';
 import 'package:flutter_extension/views/screen/home/event_details.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -18,89 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController homeController = Get.put(HomeController());
-
-  final List<EventModel> dummyEvents = [
-    EventModel(
-      id: "1",
-      title: "Rooftop Sunset Sessions",
-      description:
-          "Join us for the ultimate nightlife experience. Dance, drink, and vibe with top DJs spinning electrifying beats all night long.",
-      imageUrl: "assets/images/banner.png",
-      date: DateTime(2025, 3, 21),
-      startTime: "09:00 PM",
-      endTime: "02:00 AM",
-      totalSeats: 40,
-      bookedSeats: 10,
-      price: 50.00,
-      organizerName: "Sean John",
-      locationName: "Yellowstone National Park",
-      locationAddress: "Wyoming",
-    ),
-    EventModel(
-      id: "2",
-      title: "Tech Innovators Meetup",
-      description:
-          "Network with industry leaders and explore the latest trends in AI, robotics, and startup innovation.",
-      imageUrl: "assets/images/banner.png",
-      date: DateTime(2025, 4, 5),
-      startTime: "06:00 PM",
-      endTime: "09:00 PM",
-      totalSeats: 100,
-      bookedSeats: 65,
-      price: 15.00,
-      organizerName: "Silicon Valley Hub",
-      locationName: "Innovation Center",
-      locationAddress: "San Francisco, CA",
-    ),
-    EventModel(
-      id: "3",
-      title: "Live Jazz Night",
-      description:
-          "An evening of smooth jazz performances featuring local and international artists.",
-      imageUrl: "assets/images/banner.png",
-      date: DateTime(2025, 5, 12),
-      startTime: "07:30 PM",
-      endTime: "11:30 PM",
-      totalSeats: 60,
-      bookedSeats: 48,
-      price: 30.00,
-      organizerName: "Blue Note Events",
-      locationName: "Downtown Jazz Club",
-      locationAddress: "New Orleans, LA",
-    ),
-    EventModel(
-      id: "4",
-      title: "Startup Pitch Night",
-      description:
-          "Watch emerging startups pitch their ideas to top investors and VCs.",
-      imageUrl: "assets/images/banner.png",
-      date: DateTime(2025, 6, 18),
-      startTime: "05:00 PM",
-      endTime: "08:00 PM",
-      totalSeats: 80,
-      bookedSeats: 32,
-      price: 20.00,
-      organizerName: "Venture Circle",
-      locationName: "Tech Park Auditorium",
-      locationAddress: "Austin, TX",
-    ),
-    EventModel(
-      id: "5",
-      title: "Beachside Yoga Retreat",
-      description:
-          "Relax and recharge with guided yoga sessions by the ocean at sunrise.",
-      imageUrl: "assets/images/banner.png",
-      date: DateTime(2025, 7, 2),
-      startTime: "06:00 AM",
-      endTime: "09:00 AM",
-      totalSeats: 25,
-      bookedSeats: 18,
-      price: 40.00,
-      organizerName: "Zen Life Studio",
-      locationName: "Santa Monica Beach",
-      locationAddress: "California",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView.builder(
-                itemCount: dummyEvents.length,
+                itemCount: homeController.dummyEvents.length,
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  final event = dummyEvents[index];
+                  final event = homeController.dummyEvents[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: _eventCard(event: event),
@@ -401,10 +318,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const Spacer(),
-            SvgPicture.asset(
-              "assets/icons/notification.svg",
-              width: 24,
-              height: 24,
+            InkWell(
+              onTap: () => Get.to(
+                () => NotificationScreen(),
+                transition: Transition.rightToLeft,
+              ),
+              child: SvgPicture.asset(
+                "assets/icons/notification.svg",
+                width: 24,
+                height: 24,
+              ),
             ),
           ],
         ),

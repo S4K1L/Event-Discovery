@@ -17,6 +17,11 @@ dependencies:
   flutter_spinkit:
   cached_network_image:
   shimmer: 
+  intl: ^0.20.2
+  file_picker: ^10.3.10
+  lottie: ^3.3.2
+  image_picker: ^1.2.1
+  
 
 
 
@@ -31,6 +36,7 @@ flutter:
     - assets/language/
     - assets/images/
     - assets/icons/
+    - assets/lottie/
 
   # fonts:
   #   - family: Schyler

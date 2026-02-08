@@ -29,7 +29,7 @@ class AppColors {
     300: Color(0xFF4ADE80),
     400: Color(0xFF22C55E),
     500: Color(0xFF16A34A),
-    600: Color(0xFF15803D),
+    600: Color(0xFF15B826),
     700: Color(0xFF166534),
     800: Color(0xFF14532D),
     900: Color(0xFF052E16),

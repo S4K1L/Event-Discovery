@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_extension/controller/home_controller.dart';
+import 'package:flutter_extension/views/base/host_popup.dart';
+import 'package:flutter_extension/views/screen/events/create_events.dart';
+import 'package:flutter_extension/views/screen/events/events_screen.dart';
 import 'package:flutter_extension/views/screen/home/home_screen.dart';
+import 'package:flutter_extension/views/screen/message/message_screen.dart';
+import 'package:flutter_extension/views/screen/profile/profile.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_extension/util/app_colors.dart';
 import 'package:flutter_extension/util/style.dart';
+import 'package:get/get.dart';
 
 class CustomBottomNavbar extends StatefulWidget {
   const CustomBottomNavbar({super.key});
@@ -12,13 +19,14 @@ class CustomBottomNavbar extends StatefulWidget {
 }
 
 class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
+  final HomeController homeController = Get.find<HomeController>();
   int currentIndex = 0;
 
   final List<Widget> pages = [
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    const HomeScreen(),
+    const EventsScreens(),
+    const MessageScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -32,10 +40,23 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
           setState(() => currentIndex = index);
         },
         onCenterTap: () {
-          print("Create Event tapped");
+          if (homeController.isHost.value) {
+            Get.to(() => const CreateEventScreen());
+          } else {
+            openHostDialog(context);
+          }
         },
       ),
     );
+  }
+
+  Future<void> openHostDialog(BuildContext context) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (_) => const HostDialog(),
+    );
+
+    if (result != null && result.isNotEmpty) {}
   }
 }
 

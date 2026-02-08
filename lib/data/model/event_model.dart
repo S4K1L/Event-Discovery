@@ -12,6 +12,7 @@ class EventModel {
   final int bookedSeats;
 
   final double price;
+  final double? totalEarnings;
 
   final String organizerName;
 
@@ -29,6 +30,7 @@ class EventModel {
     required this.totalSeats,
     required this.bookedSeats,
     required this.price,
+    this.totalEarnings,
     required this.organizerName,
     required this.locationName,
     required this.locationAddress,
@@ -60,6 +62,7 @@ class EventModel {
       totalSeats: json['total_seats'],
       bookedSeats: json['booked_seats'],
       price: (json['price'] as num).toDouble(),
+      totalEarnings: (json['totalEarnings'] as num).toDouble(),
       organizerName: json['organizer_name'],
       locationName: json['location_name'],
       locationAddress: json['location_address'],
@@ -78,6 +81,7 @@ class EventModel {
       "total_seats": totalSeats,
       "booked_seats": bookedSeats,
       "price": price,
+      "totalEarnings": totalEarnings,
       "organizer_name": organizerName,
       "location_name": locationName,
       "location_address": locationAddress,

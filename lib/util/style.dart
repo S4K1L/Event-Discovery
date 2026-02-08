@@ -13,7 +13,7 @@ class AppTextStyles {
   static const FontWeight semibold = FontWeight.w600;
 
   // ---------- DISPLAY 2XL (72 / 88 / -2%) ----------
-  static TextStyle display2xl({Color? color, FontWeight? weight}) => TextStyle(
+  static TextStyle display72({Color? color, FontWeight? weight}) => TextStyle(
     fontSize: 72,
     height: _lh(88, 72),
     letterSpacing: _tracking(72),
@@ -22,7 +22,7 @@ class AppTextStyles {
   );
 
   // ---------- DISPLAY XL (60 / 72 / -2%) ----------
-  static TextStyle displayXl({Color? color, FontWeight? weight}) => TextStyle(
+  static TextStyle display60({Color? color, FontWeight? weight}) => TextStyle(
     fontSize: 60,
     height: _lh(72, 60),
     letterSpacing: _tracking(60),
@@ -31,7 +31,7 @@ class AppTextStyles {
   );
 
   // ---------- DISPLAY LG (48 / 60 / -2%) ----------
-  static TextStyle displayLg({Color? color, FontWeight? weight}) => TextStyle(
+  static TextStyle display48({Color? color, FontWeight? weight}) => TextStyle(
     fontSize: 48,
     height: _lh(60, 48),
     letterSpacing: _tracking(48),
@@ -40,7 +40,7 @@ class AppTextStyles {
   );
 
   // ---------- DISPLAY MD (36 / 44 / -2%) ----------
-  static TextStyle displayMd({Color? color, FontWeight? weight}) => TextStyle(
+  static TextStyle display36({Color? color, FontWeight? weight}) => TextStyle(
     fontSize: 36,
     height: _lh(44, 36),
     letterSpacing: _tracking(36),

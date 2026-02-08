@@ -3,14 +3,14 @@ import 'package:flutter_extension/controller/home_controller.dart';
 import 'package:flutter_extension/data/model/event_model.dart';
 import 'package:flutter_extension/util/app_colors.dart';
 import 'package:flutter_extension/util/style.dart';
-import 'package:flutter_extension/views/screen/home/book_event.dart';
+import 'package:flutter_extension/views/base/custom_button.dart';
+import 'package:flutter_extension/views/screen/events/edit_event.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class EventDetails extends StatelessWidget {
+class MyEventDetails extends StatelessWidget {
   final EventModel event;
-  final bool? isAttending;
-  EventDetails({super.key, required this.event, this.isAttending = false});
+  MyEventDetails({super.key, required this.event});
   final HomeController homeController = Get.find<HomeController>();
 
   @override
@@ -89,23 +89,6 @@ class EventDetails extends StatelessWidget {
                                   color: AppColors.grey[600],
                                 ),
                               ),
-                              const Spacer(),
-                              Obx(
-                                () => InkWell(
-                                  onTap: () {
-                                    homeController.toggleBookmark();
-                                  },
-                                  child: SvgPicture.asset(
-                                    "assets/icons/bookmark.svg",
-                                    width: 24,
-                                    height: 24,
-                                    // ignore: deprecated_member_use
-                                    color: homeController.isBookmarked.value
-                                        ? AppColors.primary
-                                        : AppColors.grey[400],
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
 
@@ -133,51 +116,6 @@ class EventDetails extends StatelessWidget {
 
                           Row(
                             children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 6,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.blue[50],
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Text(
-                                  event.seatText,
-                                  style: AppTextStyles.text14(
-                                    color: AppColors.grey[800],
-                                    weight: AppTextStyles.medium,
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Party by:",
-                                      style: AppTextStyles.text14(
-                                        color: AppColors.grey[700],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      event.organizerName,
-                                      style: AppTextStyles.text14(
-                                        color: AppColors.grey[500],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          Row(
-                            children: [
                               SvgPicture.asset(
                                 "assets/icons/location.svg",
                                 width: 24,
@@ -194,53 +132,89 @@ class EventDetails extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 24),
+                          Row(
+                            children: [
+                              Text(
+                                "Total Earnings",
+                                style: AppTextStyles.text16(
+                                  color: AppColors.grey[500],
+                                  weight: AppTextStyles.regular,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                "\$${event.totalEarnings!.toStringAsFixed(2)}",
+                                style: AppTextStyles.text18(
+                                  color: AppColors.primary,
+                                  weight: AppTextStyles.medium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 28),
+                          Row(
+                            children: [
+                              Text(
+                                "Seat Sold",
+                                style: AppTextStyles.text16(
+                                  color: AppColors.grey[500],
+                                  weight: AppTextStyles.regular,
+                                ),
+                              ),
+                              const Spacer(),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 6,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.blue[50],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  event.seatText,
+                                  style: AppTextStyles.text14(
+                                    color: AppColors.grey[800],
+                                    weight: AppTextStyles.medium,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 28),
+                          Row(
+                            children: [
+                              Text(
+                                "Ticket Price",
+                                style: AppTextStyles.text16(
+                                  color: AppColors.grey[500],
+                                  weight: AppTextStyles.regular,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                "\$${event.price.toStringAsFixed(2)}",
+                                style: AppTextStyles.text18(
+                                  color: AppColors.primary,
+                                  weight: AppTextStyles.medium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 28),
+                          CustomButton(
+                            onTap: () {
+                              Get.to(() => EditEventScreen(event: event));
+                            },
+                            text: "Edit Event",
+                            color: AppColors.primary,
+                          ),
                         ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              decoration: BoxDecoration(color: AppColors.background),
-              child: Row(
-                children: [
-                  Text(
-                    "\$${event.price.toStringAsFixed(2)}",
-                    style: AppTextStyles.display24(
-                      color: AppColors.primary,
-                      weight: AppTextStyles.medium,
-                    ),
-                  ),
-                  const Spacer(),
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      Get.to(() => BookEvent(event: event));
-                    },
-                    icon: Icon(Icons.add, size: 28, color: AppColors.primary),
-                    label: Text(
-                      isAttending == true ? "Buy Another Ticket" : "Join event",
-                      style: AppTextStyles.text16(
-                        color: AppColors.grey[700],
-                        weight: AppTextStyles.regular,
-                      ),
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 14,
-                      ),
-                      side: BorderSide(color: AppColors.primary),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
           ),
