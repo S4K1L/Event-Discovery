@@ -108,9 +108,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
                   if (widget.isForResetPassword) {
                     Get.to(() => const ResetPassword());
+                  } else {
+                    Get.offAll(() => const CustomBottomNavbar());
                   }
-
-                  Get.offAll(() => const CustomBottomNavbar());
 
                   bool success = authController.verifyOtp(currentOtp);
 
