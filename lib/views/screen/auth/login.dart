@@ -116,9 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       // const SizedBox(height: 24),
                       CustomButton(
                         onTap: () {
-                          if (isFormValid) {
-                            Get.offAll(() => CustomBottomNavbar());
-                          }
+                          // if (isFormValid) {
+
+                          // }
+                          Get.offAll(() => const CustomBottomNavbar());
                         },
                         text: "Login",
                         color: isFormValid

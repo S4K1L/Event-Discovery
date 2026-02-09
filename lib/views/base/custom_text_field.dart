@@ -7,6 +7,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final bool isEmail;
+  final bool? readOnly;
 
   const CustomTextField({
     super.key,
@@ -15,6 +16,7 @@ class CustomTextField extends StatefulWidget {
     required this.controller,
     this.keyboardType = TextInputType.text,
     this.isEmail = false,
+    this.readOnly,
   });
 
   @override
@@ -65,6 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             controller: widget.controller,
             keyboardType: widget.keyboardType,
             onChanged: validate,
+            readOnly: widget.readOnly ?? false,
             decoration: InputDecoration(
               hintText: widget.hint,
               hintStyle: TextStyle(color: AppColors.grey[300]),

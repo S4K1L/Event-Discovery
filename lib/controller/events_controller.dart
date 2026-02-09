@@ -4,8 +4,11 @@ import '../data/model/event_model.dart';
 
 enum EventTab { myEvent, attending, saved }
 
+enum EventHistoryTab { upcomingEvent, pastEvent }
+
 class EventsController extends GetxController {
   var selectedTab = EventTab.myEvent.obs;
+  var historySelectedTab = EventHistoryTab.upcomingEvent.obs;
 
   final myEvents = <EventModel>[].obs;
   final attendingEvents = <EventModel>[].obs;
@@ -34,8 +37,21 @@ class EventsController extends GetxController {
     }
   }
 
+  List<EventModel> get historyEvents {
+    switch (historySelectedTab.value) {
+      case EventHistoryTab.upcomingEvent:
+        return myEvents;
+      case EventHistoryTab.pastEvent:
+        return attendingEvents;
+    }
+  }
+
   void changeTab(EventTab tab) {
     selectedTab.value = tab;
+  }
+
+  void changeHistoryTab(EventHistoryTab tab) {
+    historySelectedTab.value = tab;
   }
 
   void loadDummyEvents() {

@@ -33,7 +33,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
     final confirmPassword = confirmPasswordController.text.trim();
 
-    final valid = password.length >= 6 && password == confirmPassword;
+    final valid = password == confirmPassword;
     if (valid != isFormValid) {
       setState(() {
         isFormValid = valid;
@@ -83,16 +83,17 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                 CustomButton(
                   onTap: () {
-                    if (isFormValid) {
-                      Get.to(() => const LoginScreen());
-                    } else {
-                      Get.snackbar(
-                        "Error",
-                        "Please enter a valid password and make sure both fields match.",
-                        backgroundColor: AppColors.red[500]!,
-                        colorText: AppColors.white,
-                      );
-                    }
+                    Get.to(() => const LoginScreen());
+                    // if (isFormValid) {
+                    //   Get.to(() => const LoginScreen());
+                    // } else {
+                    //   Get.snackbar(
+                    //     "Error",
+                    //     "Please enter a valid password and make sure both fields match.",
+                    //     backgroundColor: AppColors.red[500]!,
+                    //     colorText: AppColors.white,
+                    //   );
+                    // }
                   },
                   text: "Continue",
                   color: isFormValid

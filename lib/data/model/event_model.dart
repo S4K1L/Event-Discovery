@@ -40,7 +40,7 @@ class EventModel {
   int get availableSeats => totalSeats - bookedSeats;
 
   /// Formatted seat text (10/40 seats)
-  String get seatText => "$bookedSeats/$totalSeats seats";
+  String get seatText => "$bookedSeats/$totalSeats";
 
   /// Formatted date (21/03/2025)
   String get formattedDate =>

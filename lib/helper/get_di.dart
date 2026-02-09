@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_extension/controller/auth_controller.dart';
 import 'package:flutter_extension/controller/home_controller.dart';
+import 'package:flutter_extension/controller/language_controller.dart';
 import 'package:flutter_extension/controller/splash_controller.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,9 +19,10 @@ Future<Map<String, Map<String, String>>> init() async {
   // Controller
   Get.lazyPut(() => ThemeController(sharedPreferences: Get.find()));
   Get.lazyPut(() => LocalizationController(sharedPreferences: Get.find()));
-  Get.lazyPut(() => SplashController());
-  Get.lazyPut(() => AuthController());
-  Get.lazyPut(() => HomeController());
+  Get.lazyPut(() => SplashController(), fenix: true);
+  Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => HomeController(), fenix: true);
+  Get.lazyPut(() => LanguageController(), fenix: true);
 
   //Retrieving localized data
   Map<String, Map<String, String>> _languages = Map();
