@@ -29,7 +29,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   TimeOfDay? endTime;
   DateTime? selectedDate;
   bool enableFee = true;
-  File? coverImage;
+  List<File>? coverImage;
 
   @override
   void initState() {
@@ -113,9 +113,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ),
             const SizedBox(height: 8),
 
-            EventCoverPhotoPicker(
-              onImagePicked: (file) {
-                coverImage = file;
+            EventCoverMediaPicker(
+              onMediaPicked: (files) {
+                setState(() {
+                  coverImage = files;
+                });
               },
             ),
 

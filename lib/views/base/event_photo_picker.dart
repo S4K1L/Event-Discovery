@@ -1,110 +1,143 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_extension/util/app_colors.dart';
-import 'package:flutter_extension/util/style.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_extension/views/base/swipeable_media_card.dart';
+import 'package:flutter_extension/views/base/video_preview.dart';
 
-class EventCoverPhotoPicker extends StatefulWidget {
-  final String? initialImage;
-  final Function(File? file)? onImagePicked;
+class EventCoverMediaPicker extends StatefulWidget {
+  final List<String>? initialMedia;
+  final Function(List<File>)? onMediaPicked;
 
-  const EventCoverPhotoPicker({
+  const EventCoverMediaPicker({
     super.key,
-    this.initialImage,
-    this.onImagePicked,
+    this.initialMedia,
+    this.onMediaPicked,
   });
 
   @override
-  State<EventCoverPhotoPicker> createState() => _EventCoverPhotoPickerState();
+  State<EventCoverMediaPicker> createState() => _EventCoverMediaPickerState();
 }
 
-class _EventCoverPhotoPickerState extends State<EventCoverPhotoPicker> {
-  File? selectedImage;
-  final picker = ImagePicker();
+class _EventCoverMediaPickerState extends State<EventCoverMediaPicker> {
+  List<File> mediaFiles = [];
+  double dragOffsetX = 0;
 
-  Future<void> pickImage() async {
-    final picked = await picker.pickImage(source: ImageSource.gallery);
-    if (picked != null) {
-      final file = File(picked.path);
+  Future<void> pickMedia() async {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.media,
+    );
 
-      setState(() => selectedImage = file);
-      widget.onImagePicked?.call(file);
+    if (result != null) {
+      final files = result.paths.map((e) => File(e!)).toList();
+
+      setState(() {
+        mediaFiles.addAll(files);
+      });
+
+      widget.onMediaPicked?.call(files);
     }
   }
 
-  void removeImage() {
-    setState(() => selectedImage = null);
-    widget.onImagePicked?.call(null);
+  void removeMedia(int index) {
+    setState(() {
+      mediaFiles.removeAt(index);
+    });
+
+    widget.onMediaPicked?.call(mediaFiles);
+  }
+
+  bool isVideo(File file) {
+    final ext = file.path.split('.').last.toLowerCase();
+    return ['mp4', 'mov', 'avi', 'mkv'].contains(ext);
   }
 
   @override
   Widget build(BuildContext context) {
-    final hasImage = selectedImage != null || widget.initialImage != null;
-
+    final hasMedia = mediaFiles.isNotEmpty;
     return GestureDetector(
-      onTap: pickImage,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          height: 150,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.grey[200]!),
-          ),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: selectedImage != null
-                    ? Image.file(selectedImage!, fit: BoxFit.cover)
-                    : widget.initialImage != null
-                    ? Image.asset(widget.initialImage!, fit: BoxFit.cover)
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/icons/download.svg",
-                            width: 26,
-                            height: 26,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "Upload Photo",
-                            style: AppTextStyles.text14(
-                              color: AppColors.grey[400],
-                              weight: AppTextStyles.medium,
-                            ),
-                          ),
-                        ],
-                      ),
-              ),
-
-              if (hasImage)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: GestureDetector(
-                    onTap: removeImage,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black54,
-                      ),
-                      padding: const EdgeInsets.all(6),
-                      child: const Icon(
-                        Icons.close,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
+      onTap: pickMedia,
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 150),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey.shade300),
         ),
+        child: hasMedia
+            ? SizedBox(
+                height: 450,
+                child: Stack(
+                  children: List.generate(mediaFiles.length, (index) {
+                    final file = mediaFiles[index];
+                    final reversedIndex = mediaFiles.length - 1 - index;
+                    final isTop = index == mediaFiles.length - 1;
+
+                    return Positioned(
+                      top: reversedIndex * 10,
+                      left: reversedIndex * 10,
+                      child: SwipeableMediaCard(
+                        file: file,
+                        isTop: isTop,
+                        dragOffsetX: dragOffsetX,
+
+                        isVideo: isVideo(file),
+
+                        onTap: () => openPreview(file),
+
+                        onRemove: () => removeMedia(index),
+
+                        onPanUpdate: (details) {
+                          setState(() {
+                            dragOffsetX += details.delta.dx;
+                          });
+                        },
+
+                        onPanEnd: (details) {
+                          if (dragOffsetX > 100 || dragOffsetX < -100) {
+                            removeMedia(index);
+                          }
+
+                          setState(() {
+                            dragOffsetX = 0;
+                          });
+                        },
+                      ),
+                    );
+                  }),
+                ),
+              )
+            : const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.upload, size: 28),
+                    SizedBox(height: 8),
+                    Text("Upload Media"),
+                  ],
+                ),
+              ),
       ),
     );
+  }
+
+  void openPreview(File file) {
+    if (isVideo(file)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => VideoPreviewScreen(file: file)),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => Scaffold(
+            backgroundColor: Colors.black,
+            appBar: AppBar(backgroundColor: Colors.transparent),
+            body: Center(child: Image.file(file)),
+          ),
+        ),
+      );
+    }
   }
 }
